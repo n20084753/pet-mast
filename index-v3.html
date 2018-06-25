@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pet Mash</title>
+	<link rel="stylesheet" type="text/css" href="assets/libs/semantic.min.css">
+	<script
+	  	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  	crossorigin="anonymous"></script>	
+	<script src="assets/libs/semantic.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>	
+	<div class="page-content">
+		<h1 class="ui centered header">Pet Mash</h1>
+		<div id="pet-list" class="ui large vertical menu"></div>
+		<div class="ui cards with-side-menu">
+		  	<div class="ui centered card pet-card">
+		  		<div class="image">
+		      		<img id="pet-image">
+		    	</div>
+		    	<div class="content">
+		    		<a id="pet-name" class="header"></a>
+		    	</div>
+		    	<div class="extra content">
+		      		<div class="ui two buttons">
+		        		<div id="pet-upvote-btn" data-index=0 class="ui up-vote-btn labeled button" tabindex="0">
+				  			<div class="ui green button">
+				    			<i class="thumbs up icon"></i>
+				  			</div>
+				  			<a data-index=0 id="pet-upvote-count" class="ui up-vote-count basic green left pointing label">0</a>
+						</div>
+			        	<div id="pet-downvote-btn" data-index=0 class="ui down-vote-btn left labeled button" tabindex="0">
+					  		<a data-index=0 id="pet-downvote-count" class="ui down-vote-count basic red right pointing label">0</a>
+					  		<div class="ui red icon button">
+					    		<i class="thumbs down icon"></i>
+					  		</div>
+						</div>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	(function() {
+		var data = {
+			currentPetIndex: 0,
+			pets: [
+				{
+					name: 'Peter',
+					imageUrl: 'assets/images/peter.jpeg',
+					upVoteCount: 0,
+					downVoteCount: 0
+				},
+				{
+					name: 'Snoby',
+					imageUrl: 'assets/images/snoby.jpeg',
+					upVoteCount: 0,
+					downVoteCount: 0
+				},
+				{
+					name: 'Jack',
+					imageUrl: 'assets/images/jack.jpeg',
+					upVoteCount: 0,
+					downVoteCount: 0
+				},
+				{
+					name: 'David',
+					imageUrl: 'assets/images/david.jpg',
+					upVoteCount: 0,
+					downVoteCount: 0
+				},
+				{
+					name: 'Sam',
+					imageUrl: 'assets/images/sam.jpg',
+					upVoteCount: 0,
+					downVoteCount: 0
+				},
+			]
+		};
+
+		var controller = {
+			init: function() {
+				listView.init();
+				petDisplayView.init();
+			},
+			getPets: function() {
+				return data.pets;
+			},
+			getCurrentPet: function() {
+				return data.pets[data.currentPetIndex];
+			},
+			updateCurrentPetIndex: function(index) {
+				data.currentPetIndex = index;
+				petDisplayView.render();
+			},
+
+			updatePetUpvoteCount: function() {
+				data.pets[data.currentPetIndex].upVoteCount++;
+				petDisplayView.render();
+			},
+
+			updatePetDownvoteCount: function() {
+				data.pets[data.currentPetIndex].downVoteCount++;
+				petDisplayView.render();
+			}
+		};
+
+		var listView = {
+			init: function() {
+				this.$listItemHolder = document.getElementById('pet-list');
+				this.render();
+			},
+			render: function() {
+				var petList = controller.getPets();
+				for (var petIndex in petList) {
+					var $elem = document.createElement('a');
+					$elem.className = "item";
+					$elem.setAttribute('pet_index', petIndex);
+					$elem.innerText = petList[petIndex].name;
+
+					this.$listItemHolder.appendChild($elem);
+
+					$elem.addEventListener('click', function() {
+						var selectedPetIndex = this.getAttribute('pet_index');
+						controller.updateCurrentPetIndex(selectedPetIndex);
+					});
+				}
+			}
+		};
+
+		var petDisplayView = {
+			init: function() {
+				this.$petImageElem = document.getElementById('pet-image');
+				this.$petNameElem = document.getElementById('pet-name');
+				this.$upVoteBtn = document.getElementById('pet-upvote-btn');
+				this.$downVoteBtn = document.getElementById('pet-downvote-btn');
+				this.$upVoteCount = document.getElementById('pet-upvote-count');
+				this.$downVoteCount = document.getElementById('pet-downvote-count');
+
+				this.$upVoteBtn.addEventListener('click', function() {
+					controller.updatePetUpvoteCount();
+				});
+
+				this.$downVoteBtn.addEventListener('click', function() {
+					controller.updatePetDownvoteCount();
+				});
+
+				this.render();
+			},
+			render: function() {
+				pet = controller.getCurrentPet();
+
+				this.$petImageElem.src = pet.imageUrl;
+				this.$petNameElem.innerText = pet.name;
+				this.$upVoteCount.innerText = pet.upVoteCount;
+				this.$downVoteCount.innerText = pet.downVoteCount;
+			}
+		};
+
+		controller.init();
+	})();
+</script>
+
+</html>

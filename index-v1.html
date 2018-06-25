@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Pet Mash</title>
+	<link rel="stylesheet" type="text/css" href="assets/libs/semantic.min.css">
+	<script
+	  	src="https://code.jquery.com/jquery-3.1.1.min.js"
+	  	integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	  	crossorigin="anonymous"></script>	
+	<script src="assets/libs/semantic.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body>
+	<div class="page-content">
+		<h1 class="ui centered header">Pet Mash</h1>
+		<div class="ui cards">
+		  	<div class="ui centered card pet-card">
+		  		<div class="image">
+		      		<img src="assets/images/peter.jpeg">
+		    	</div>
+		    	<div class="content">
+		    		<a class="header">Peter</a>
+		    	</div>
+		    	<div class="extra content">
+		      		<div class="ui two buttons">
+		        		<div data-index=0 class="ui up-vote-btn labeled button" tabindex="0">
+				  			<div class="ui green button">
+				    			<i class="thumbs up icon"></i>
+				  			</div>
+				  			<a data-index=0 class="ui up-vote-count basic green left pointing label">0</a>
+						</div>
+			        	<div data-index=0 class="ui down-vote-btn left labeled button" tabindex="0">
+					  		<a data-index=0 class="ui down-vote-count basic red right pointing label">0</a>
+					  		<div class="ui red icon button">
+					    		<i class="thumbs down icon"></i>
+					  		</div>
+						</div>
+		      		</div>
+		    	</div>
+		  	</div>
+		  	<div class="ui centered card pet-card">
+		  		<div class="image">
+		      		<img src="assets/images/snoby.jpeg">
+		    	</div>
+		    	<div class="content">
+		    		<a class="header">Snoby</a>
+		    	</div>
+		    	<div class="extra content">
+		      		<div class="ui two buttons">
+		        		<div data-index=1 class="ui up-vote-btn labeled button" tabindex="0">
+				  			<div class="ui green button">
+				    			<i class="thumbs up icon"></i>
+				  			</div>
+				  			<a data-index=1 class="ui up-vote-count basic green left pointing label">0</a>
+						</div>
+			        	<div data-index=1 class="ui down-vote-btn left labeled button" tabindex="0">
+					  		<a data-index=1 class="ui down-vote-count basic red right pointing label">0</a>
+					  		<div class="ui red icon button">
+					    		<i class="thumbs down icon"></i>
+					  		</div>
+						</div>
+		      		</div>
+		    	</div>
+		  	</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	(function() {
+		var $upVoteBtn = document.getElementsByClassName('up-vote-btn'),
+			$downVoteBtn = document.getElementsByClassName('down-vote-btn'),
+			$upVoteLabel = document.getElementsByClassName('up-vote-count'),
+			$downVoteLabel = document.getElementsByClassName('down-vote-count');
+
+		for (var i = 0; i < $upVoteBtn.length; i++) {
+			$upVoteBtn[i].addEventListener('click', (function(iCopy) {
+				return function() {
+					$upVoteLabel[iCopy].innerText = (parseInt($upVoteLabel[iCopy].innerText) + 1);
+				};
+			})(i), false);
+			
+			$downVoteBtn[i].addEventListener('click', function(iCopy) {
+				return function() {
+					$downVoteLabel[iCopy].innerText = (parseInt($downVoteLabel[iCopy].innerText) + 1);
+				};
+			}(i), false);
+		}
+	})();
+</script>
+
+</html>

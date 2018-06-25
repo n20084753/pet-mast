@@ -1,0 +1,38 @@
+.page-content {
+	padding: 20px;
+}
+
+.ui.cards>.card.pet-card {
+	width: 350px !important;
+}
+
+.ui.cards>.card.pet-card.v2 {
+	display: none;
+}
+
+.ui.cards>.card.pet-card.v2.show {
+	display: block;
+}
+
+.ui.cards {
+	margin-top: 40px;
+}
+
+.menu {
+	margin-top: 40px; 
+	position: fixed;
+}
+
+.ui.cards.with-side-menu {
+	/*width: calc(100% - 275px);*/
+    /*margin-left: 275px;*/
+}
+
+.ui.card>.image>img, .ui.cards>.card>.image>img {
+	height: 275px;
+}
+
+.ui.two.buttons>.button {
+	margin: 0 10px;
+	width: calc(50% - 40px);
+}
